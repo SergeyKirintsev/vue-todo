@@ -27,8 +27,28 @@ const deleteTodo = (req, res, next) => {
     .catch(next);
 };
 
+const toogleTodo = (req, res, next) => {
+  const { id, completed } = req.body;
+  console.log(id);
+
+  Todo.findByIdAndUpdate(
+    id,
+    { completed },
+    {
+      new: true, // обработчик then получит на вход обновлённую запись
+      runValidators: true, // данные будут валидированы перед изменением
+    },
+  )
+    .then((data) => res.send({ data }))
+    .catch((err) => {
+      console.log(err);
+      next(err);
+    });
+};
+
 module.exports = {
   createTodo,
   getTodos,
   deleteTodo,
+  toogleTodo,
 };

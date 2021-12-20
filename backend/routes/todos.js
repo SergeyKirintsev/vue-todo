@@ -5,6 +5,7 @@ const {
   createTodo,
   getTodos,
   deleteTodo,
+  toogleTodo,
 } = require('../controllers/todos');
 
 router.delete(
@@ -15,6 +16,17 @@ router.delete(
     }),
   }),
   deleteTodo,
+);
+
+router.patch(
+  '/',
+  celebrate({
+    body: Joi.object().keys({
+      id: Joi.string().length(24).hex(),
+      completed: Joi.boolean().required(),
+    }),
+  }),
+  toogleTodo,
 );
 
 router.get('/', getTodos);
