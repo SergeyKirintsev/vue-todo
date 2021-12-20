@@ -1,24 +1,39 @@
 <template>
-  <div class="home">
-    <h3>Test {{ like }}</h3>
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div class="about">
+    <MyInput
+      placeholder="Поиск...."
+      :model-value="searchQuery"
+      @update:model-value="this.setSearchQuery"
+    />
+    <ul v-if="!isFetching">
+      <li v-for="todo in this.searchedTodos" v-bind:key="todo._id">
+        {{ todo.title }}
+        {{ todo.body }}
+      </li>
+    </ul>
+    <p v-else>Загрузка...</p>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import { mapState, mapActions, mapMutations, mapGetters } from "vuex";
+import MyInput from "../components/UI/MyInput";
 
 export default {
-  name: "Home",
-  components: {
-    HelloWorld,
+  components: { MyInput },
+  computed: {
+    ...mapState({
+      isFetching: (state) => state.isFetching,
+      searchQuery: (state) => state.searchQuery,
+    }),
+    ...mapGetters(["searchedTodos"]),
   },
-  data() {
-    return {
-      like: 11,
-    };
+  methods: {
+    ...mapActions(["fetchTodos"]),
+    ...mapMutations(["setSearchQuery"]),
+  },
+  mounted() {
+    this.fetchTodos();
   },
 };
 </script>

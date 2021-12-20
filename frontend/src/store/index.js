@@ -7,6 +7,7 @@ export default createStore({
   state: () => ({
     isFetching: false,
     todos: [],
+    searchQuery: "",
   }),
   mutations: {
     setTodos(state, todos) {
@@ -14,6 +15,17 @@ export default createStore({
     },
     setIsFetching(state, bool) {
       state.isFetching = bool;
+    },
+    setSearchQuery(state, searchQuery) {
+      state.searchQuery = searchQuery;
+    },
+  },
+  getters: {
+    searchedTodos(state) {
+      return [...state.todos].filter((todo) => {
+        const fullText = todo.title + todo.body;
+        return fullText.toLowerCase().includes(state.searchQuery.toLowerCase());
+      });
     },
   },
   actions: {
