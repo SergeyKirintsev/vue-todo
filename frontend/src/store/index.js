@@ -1,14 +1,33 @@
 import { createStore } from "vuex";
+import axios from "axios";
+
+const url = "http://localhost:3000/todos";
 
 export default createStore({
-  state: {
-    todos: [
-      { id: 1, title: "Z", body: "zzzzzz" },
-      { id: 2, title: "Y", body: "yyyy" },
-      { id: 3, title: "X", body: "xxx" },
-    ],
+  state: () => ({
+    isFetching: false,
+    todos: [],
+  }),
+  mutations: {
+    setTodos(state, todos) {
+      state.todos = todos;
+    },
+    setIsFetching(state, bool) {
+      state.isFetching = bool;
+    },
   },
-  mutations: {},
-  actions: {},
+  actions: {
+    async fetchTodos({ commit }) {
+      try {
+        commit("setIsFetching", true);
+        const response = await axios.get(url);
+        commit("setTodos", response.data.data);
+      } catch (e) {
+        console.log(e);
+      } finally {
+        commit("setIsFetching", false);
+      }
+    },
+  },
   modules: {},
 });
