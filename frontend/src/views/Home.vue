@@ -45,15 +45,15 @@ export default {
     ...mapGetters(["searchedTodos"]),
   },
   methods: {
-    ...mapActions(["fetchTodos"]),
+    ...mapActions(["fetchTodos", "postTodo"]),
     ...mapMutations(["setSearchQuery"]),
     showDialog() {
       console.log("showDialog");
       this.dialogVisible = true;
     },
     createTodo(todo) {
-      console.log(todo);
       this.dialogVisible = false;
+      this.postTodo(todo);
     },
   },
   mounted() {

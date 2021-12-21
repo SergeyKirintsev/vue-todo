@@ -1,7 +1,7 @@
 import { createStore } from "vuex";
 import axios from "axios";
 
-const url = "http://localhost:3000/todos";
+const baseUrl = "http://localhost:3000/todos";
 
 export default createStore({
   state: () => ({
@@ -19,6 +19,9 @@ export default createStore({
     setSearchQuery(state, searchQuery) {
       state.searchQuery = searchQuery;
     },
+    setTodo(state, todo) {
+      state.todos = [...state.todos, todo];
+    },
   },
   getters: {
     searchedTodos(state) {
@@ -32,12 +35,23 @@ export default createStore({
     async fetchTodos({ commit }) {
       try {
         commit("setIsFetching", true);
-        const response = await axios.get(url);
+        const response = await axios.get(baseUrl, {});
         commit("setTodos", response.data.data);
       } catch (e) {
         console.log(e);
       } finally {
         commit("setIsFetching", false);
+      }
+    },
+    async postTodo({ commit }, todo) {
+      try {
+        const { data } = await axios.post(baseUrl, {
+          title: todo.title,
+          body: todo.body,
+        });
+        commit("setTodo", data);
+      } catch (e) {
+        console.log(e);
       }
     },
   },
