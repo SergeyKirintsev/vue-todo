@@ -12,14 +12,8 @@
       <PostForm @create="createTodo" />
     </MyDialog>
 
-    <TodoList :todos="searchedTodos" v-if="!isFetching" />
+    <TodoList :todos="searchedTodos" v-if="!isFetching" @remove="deleteTodo" />
     <p v-else>Загрузка...</p>
-    <!--    <ul v-if="!isFetching">-->
-    <!--      <li v-for="todo in searchedTodos" v-bind:key="todo._id">-->
-    <!--        {{ todo.title }}-->
-    <!--        {{ todo.body }}-->
-    <!--      </li>-->
-    <!--    </ul>-->
   </div>
 </template>
 
@@ -46,7 +40,7 @@ export default {
     ...mapGetters(["searchedTodos"]),
   },
   methods: {
-    ...mapActions(["fetchTodos", "postTodo"]),
+    ...mapActions(["fetchTodos", "postTodo", "deleteTodo"]),
     ...mapMutations(["setSearchQuery"]),
     showDialog() {
       this.dialogVisible = true;

@@ -1,7 +1,12 @@
 <template>
   <div v-if="todos.length > 0">
     <transition-group name="todo-list">
-      <TodoItem v-for="todo in todos" :todo="todo" :key="todo._id" />
+      <TodoItem
+        v-for="todo in todos"
+        :todo="todo"
+        :key="todo._id"
+        @remove="$emit('remove', todo)"
+      />
     </transition-group>
   </div>
   <h2 v-else style="color: red">Список пуст</h2>

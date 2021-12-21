@@ -22,6 +22,9 @@ export default createStore({
     setTodo(state, todo) {
       state.todos = [...state.todos, todo];
     },
+    deleteTodo(state, todo) {
+      state.todos = [...state.todos.filter((el) => el._id !== todo._id)];
+    },
   },
   getters: {
     searchedTodos(state) {
@@ -50,6 +53,14 @@ export default createStore({
           body: todo.body,
         });
         commit("setTodo", data);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async deleteTodo({ commit }, todo) {
+      try {
+        const { data } = await axios.delete(`${baseUrl}/${todo._id}`);
+        commit("deleteTodo", data.data);
       } catch (e) {
         console.log(e);
       }
