@@ -6,13 +6,34 @@
       @update:model-value="setSearchQuery"
     />
 
-    <MyButton @click="showDialog" style="margin: 15px"> Add todo </MyButton>
+    <MyButton @click="showCreateForm" style="margin: 15px">
+      Добавить запись
+    </MyButton>
 
-    <MyDialog v-model:show="dialogVisible">
-      <PostForm @create="createTodo" />
+    <MyDialog v-model:show="isShowCreateForm">
+      <PostForm
+        @submit="createTodo"
+        form-title="Добавление"
+        button-title="Создать"
+        :edit-data="{}"
+      />
     </MyDialog>
 
-    <TodoList :todos="searchedTodos" v-if="!isFetching" @remove="deleteTodo" />
+    <MyDialog v-model:show="isShowEditForm">
+      <PostForm
+        @submit="editTodo"
+        form-title="Редактирование"
+        button-title="Сохранить"
+        :edit-data="todoForEdit"
+      />
+    </MyDialog>
+
+    <TodoList
+      :todos="searchedTodos"
+      v-if="!isFetching"
+      @remove="deleteTodo"
+      @edit="showEditForm"
+    />
     <p v-else>Загрузка...</p>
   </div>
 </template>
@@ -29,7 +50,9 @@ export default {
   components: { TodoList, MyButton, MyInput, MyDialog, PostForm },
   data() {
     return {
-      dialogVisible: false,
+      isShowCreateForm: false,
+      isShowEditForm: false,
+      todoForEdit: {},
     };
   },
   computed: {
@@ -42,12 +65,26 @@ export default {
   methods: {
     ...mapActions(["fetchTodos", "postTodo", "deleteTodo"]),
     ...mapMutations(["setSearchQuery"]),
-    showDialog() {
-      this.dialogVisible = true;
+    showCreateForm() {
+      this.isShowCreateForm = true;
+    },
+    showEditForm(todo) {
+      console.log(todo);
+      this.todoForEdit = { ...todo };
+      this.isShowEditForm = true;
     },
     createTodo(todo) {
-      this.dialogVisible = false;
+      this.closePopup();
       this.postTodo(todo);
+    },
+    editTodo(todo) {
+      console.log(todo);
+      this.closePopup();
+      // this.postTodo(todo);
+    },
+    closePopup() {
+      this.isShowEditForm = false;
+      this.isShowCreateForm = false;
     },
   },
   mounted() {

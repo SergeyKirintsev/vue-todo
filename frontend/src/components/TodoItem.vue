@@ -5,7 +5,9 @@
       <div><strong>Описание:</strong> {{ todo.body }}</div>
     </div>
     <div class="card__buttons">
-      <MyButton style="margin-right: 15px">Редактировать</MyButton>
+      <MyButton @click="$emit('edit')" style="margin-right: 15px"
+        >Редактировать</MyButton
+      >
       <MyButton @click="$emit('remove')">Удалить</MyButton>
     </div>
   </div>

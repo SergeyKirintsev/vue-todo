@@ -17,7 +17,6 @@ export default {
   },
   methods: {
     hideDialog() {
-      console.log("hideDialog");
       this.$emit("update:show", false);
     },
   },
