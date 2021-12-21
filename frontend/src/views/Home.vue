@@ -12,14 +12,14 @@
       <PostForm @create="createTodo" />
     </MyDialog>
 
-    <ul v-if="!isFetching">
-      <li v-for="todo in searchedTodos" v-bind:key="todo._id">
-        {{ todo.title }}
-        {{ todo.body }}
-      </li>
-    </ul>
-
+    <TodoList :todos="searchedTodos" v-if="!isFetching" />
     <p v-else>Загрузка...</p>
+    <!--    <ul v-if="!isFetching">-->
+    <!--      <li v-for="todo in searchedTodos" v-bind:key="todo._id">-->
+    <!--        {{ todo.title }}-->
+    <!--        {{ todo.body }}-->
+    <!--      </li>-->
+    <!--    </ul>-->
   </div>
 </template>
 
@@ -29,9 +29,10 @@ import MyInput from "../components/UI/MyInput";
 import MyButton from "../components/UI/MyButton";
 import MyDialog from "../components/UI/MyDialog";
 import PostForm from "../components/PostForm";
+import TodoList from "../components/TodoList";
 
 export default {
-  components: { MyButton, MyInput, MyDialog, PostForm },
+  components: { TodoList, MyButton, MyInput, MyDialog, PostForm },
   data() {
     return {
       dialogVisible: false,
@@ -48,7 +49,6 @@ export default {
     ...mapActions(["fetchTodos", "postTodo"]),
     ...mapMutations(["setSearchQuery"]),
     showDialog() {
-      console.log("showDialog");
       this.dialogVisible = true;
     },
     createTodo(todo) {

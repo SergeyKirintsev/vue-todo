@@ -18,4 +18,8 @@ export default {
   border: 1px solid teal;
   cursor: pointer;
 }
+.btn:hover {
+  opacity: 0.8;
+  transition: 0.6s;
+}
 </style>
