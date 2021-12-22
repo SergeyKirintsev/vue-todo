@@ -12,7 +12,7 @@
 
     <MyDialog v-model:show="isShowCreateForm">
       <PostForm
-        @submit="createTodo"
+        :onSubmit="createTodo"
         form-title="Добавление"
         button-title="Создать"
         :edit-data="{}"
@@ -21,7 +21,7 @@
 
     <MyDialog v-model:show="isShowEditForm">
       <PostForm
-        @submit="editTodo"
+        :onSubmit="editTodo"
         form-title="Редактирование"
         button-title="Сохранить"
         :edit-data="todoForEdit"
@@ -63,13 +63,12 @@ export default {
     ...mapGetters(["searchedTodos"]),
   },
   methods: {
-    ...mapActions(["fetchTodos", "postTodo", "deleteTodo"]),
+    ...mapActions(["fetchTodos", "postTodo", "deleteTodo", "updateTodo"]),
     ...mapMutations(["setSearchQuery"]),
     showCreateForm() {
       this.isShowCreateForm = true;
     },
     showEditForm(todo) {
-      console.log(todo);
       this.todoForEdit = { ...todo };
       this.isShowEditForm = true;
     },
@@ -78,9 +77,8 @@ export default {
       this.postTodo(todo);
     },
     editTodo(todo) {
-      console.log(todo);
       this.closePopup();
-      // this.postTodo(todo);
+      this.updateTodo(todo);
     },
     closePopup() {
       this.isShowEditForm = false;

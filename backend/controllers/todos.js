@@ -29,7 +29,6 @@ const deleteTodo = (req, res, next) => {
 
 const toogleTodo = (req, res, next) => {
   const { id, completed } = req.body;
-  console.log(id);
 
   Todo.findByIdAndUpdate(
     id,
@@ -39,9 +38,26 @@ const toogleTodo = (req, res, next) => {
       runValidators: true, // данные будут валидированы перед изменением
     },
   )
-    .then((data) => res.send({ data }))
+    .then((data) => res.send(data))
     .catch((err) => {
-      console.log(err);
+      next(err);
+    });
+};
+
+const updateTodo = (req, res, next) => {
+  const { id, title, body } = req.body;
+  console.log('updateTodo');
+
+  Todo.findByIdAndUpdate(
+    id,
+    { title, body },
+    {
+      new: true, // обработчик then получит на вход обновлённую запись
+      runValidators: true, // данные будут валидированы перед изменением
+    },
+  )
+    .then((data) => res.send(data))
+    .catch((err) => {
       next(err);
     });
 };
@@ -51,4 +67,5 @@ module.exports = {
   getTodos,
   deleteTodo,
   toogleTodo,
+  updateTodo,
 };
