@@ -1,10 +1,14 @@
 <template>
   <div class="about">
-    <MyInput
-      placeholder="Поиск...."
-      :model-value="searchQuery"
-      @update:model-value="setSearchQuery"
-    />
+    <div class="search-panel">
+      <MyInput
+        placeholder="Поиск...."
+        :model-value="searchQuery"
+        @update:model-value="setSearchQuery"
+        style="margin-right: 15px"
+      />
+      <MyButton @click="setSearchQuery('')">Очистить</MyButton>
+    </div>
 
     <MyButton @click="showCreateForm" style="margin: 15px">
       Добавить запись
@@ -97,3 +101,10 @@ export default {
   },
 };
 </script>
+
+<style>
+.search-panel {
+  display: flex;
+  align-items: center;
+}
+</style>
