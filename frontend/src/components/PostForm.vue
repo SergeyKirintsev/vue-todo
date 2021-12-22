@@ -1,7 +1,7 @@
 <template>
   <form>
     <h4>{{ formTitle }}</h4>
-    <MyInput v-model="todo.title" type="text" placeholder="Название"/>
+    <MyInput v-model="todo.title" type="text" placeholder="Название" />
     <MyInput v-model="todo.body" type="text" placeholder="Описание" />
     <MyButton
       @click="handleSubmit"
