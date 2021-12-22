@@ -104,6 +104,7 @@ export default {
 
 <style>
 .search-panel {
+  margin-top: 15px;
   display: flex;
   align-items: center;
 }
