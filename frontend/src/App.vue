@@ -35,26 +35,27 @@ export default {
   color: #2c3e50;
   padding: 20px;
   max-width: 800px;
+  min-width: 600px;
   margin: 0 auto;
 }
 .wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
-  position: relative;
 }
 .marker {
   text-transform: uppercase;
   color: black;
+  position: relative;
 }
 .marker::after {
   content: "";
   height: 6px;
-  width: 165px;
+  width: 160px;
   background-color: yellowgreen;
   position: absolute;
-  top: 25px;
-  right: 44px;
+  top: 14px;
+  left: 0;
   z-index: -1;
 }
 .link {
