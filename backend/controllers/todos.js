@@ -27,7 +27,7 @@ const deleteTodo = (req, res, next) => {
     .catch(next);
 };
 
-const toogleTodo = (req, res, next) => {
+const toggleTodo = (req, res, next) => {
   const { id, completed } = req.body;
 
   Todo.findByIdAndUpdate(
@@ -46,7 +46,6 @@ const toogleTodo = (req, res, next) => {
 
 const updateTodo = (req, res, next) => {
   const { id, title, body } = req.body;
-  console.log('updateTodo');
 
   Todo.findByIdAndUpdate(
     id,
@@ -66,6 +65,6 @@ module.exports = {
   createTodo,
   getTodos,
   deleteTodo,
-  toogleTodo,
+  toggleTodo,
   updateTodo,
 };

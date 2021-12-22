@@ -82,6 +82,17 @@ export default createStore({
         console.log(e);
       }
     },
+    async toggleTodo({ commit }, todo) {
+      try {
+        const { data } = await axios.patch(`${baseUrl}/completed`, {
+          id: todo._id,
+          completed: !todo.completed,
+        });
+        commit("updateTodo", data);
+      } catch (e) {
+        console.log(e);
+      }
+    },
   },
   modules: {},
 });

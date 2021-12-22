@@ -5,7 +5,7 @@ const {
   createTodo,
   getTodos,
   deleteTodo,
-  toogleTodo,
+  toggleTodo,
   updateTodo,
 } = require('../controllers/todos');
 
@@ -27,7 +27,7 @@ router.patch(
       completed: Joi.boolean().required(),
     }),
   }),
-  toogleTodo,
+  toggleTodo,
 );
 
 router.patch(

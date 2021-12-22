@@ -33,6 +33,7 @@
       v-if="!isFetching"
       @remove="deleteTodo"
       @edit="showEditForm"
+      @toggle="toggleTodo"
     />
     <p v-else>Загрузка...</p>
   </div>
@@ -63,7 +64,13 @@ export default {
     ...mapGetters(["searchedTodos"]),
   },
   methods: {
-    ...mapActions(["fetchTodos", "postTodo", "deleteTodo", "updateTodo"]),
+    ...mapActions([
+      "fetchTodos",
+      "postTodo",
+      "deleteTodo",
+      "updateTodo",
+      "toggleTodo",
+    ]),
     ...mapMutations(["setSearchQuery"]),
     showCreateForm() {
       this.isShowCreateForm = true;

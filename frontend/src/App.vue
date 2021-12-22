@@ -11,8 +11,7 @@
 import Title from "./components/Title";
 export default {
   components: { Title },
-}
-
+};
 </script>
 
 <style>
@@ -28,6 +27,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
 }
-
 </style>
